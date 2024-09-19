@@ -31,3 +31,11 @@ class AccountPermission(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.account.name} - {self.permission_level}'
 
+class Transaction(models.Model):
+    account = models.ForeignKey(InvestmentAccount, on_delete=models.CASCADE, related_name='transactions')
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='transactions')
+    amount = models.DecimalField(max_digits=12, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.account.name} - {self.amount} by {self.user.username}'
