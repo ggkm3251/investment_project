@@ -12,3 +12,8 @@ class InvestmentAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = InvestmentAccount
         fields = ['id', 'name', 'balance', 'transactions']
+
+class AccountPermissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccountPermission
+        fields = ['user_profile', 'account', 'permission_level']
