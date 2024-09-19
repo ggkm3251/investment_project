@@ -6,4 +6,9 @@ class TransactionSerializer(serializers.ModelSerializer):
         model = Transaction
         fields = ['id', 'account', 'user_profile', 'amount', 'date']
 
+class InvestmentAccountSerializer(serializers.ModelSerializer):
+    transactions = TransactionSerializer(many=True, read_only=True)
 
+    class Meta:
+        model = InvestmentAccount
+        fields = ['id', 'name', 'balance', 'transactions']
