@@ -25,6 +25,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
     filterset_fields = ['account', 'date']
     ordering_fields = ['date']
 
+   
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def admin_summary(self, request):
         user_profile = UserProfile.objects.get(user=request.user)
