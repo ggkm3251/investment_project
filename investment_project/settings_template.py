@@ -8,9 +8,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')  # Default value for local development
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'yourdomain.com').split(',')
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
 
 # Application definition
 
@@ -68,12 +70,12 @@ WSGI_APPLICATION = 'investment_project.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Change to your database engine
-        'NAME': os.environ.get('DB_NAME', 'default_db_name'),  # Use the environment variable
-        'USER': os.environ.get('DB_USER', 'default_user'),  # Use the environment variable
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'default_password'),  # Use the environment variable
-        'HOST': os.environ.get('DB_HOST', 'localhost'),  # Use the environment variable
-        'PORT': os.environ.get('DB_PORT', ''),  # Leave blank for default
+        'ENGINE': 'django.db.backends.postgresql',  # Change to PostgreSQL
+        'NAME': os.environ.get('POSTGRES_DB', 'test_db'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
