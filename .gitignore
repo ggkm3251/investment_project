@@ -59,6 +59,3 @@ media/
 
 # VS Code, PyCharm, and other editor settings
 .vscode/
-.idea/
-
-settings.py
