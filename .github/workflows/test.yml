@@ -26,8 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+        env:
+          DJANGO_SETTINGS_MODULE: investment_project.settings  # Set the settings module
+
       - name: Run tests
         run: |
           python manage.py test  # Change if you're using a different test command
 
-          
