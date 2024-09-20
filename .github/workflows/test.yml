@@ -1,10 +1,12 @@
-name: Django CI
+name: Run Tests
 
 on:
   push:
     branches:
-      - main
+      - main  # Change this to your default branch if it's different
   pull_request:
+    branches:
+      - main  # Change this to your default branch if it's different
 
 jobs:
   test:
@@ -20,33 +22,34 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U your_db_user"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="pg_isready -U $POSTGRES_USER"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.12'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}  # Ensure SECRET_KEY is available
 
-    - name: Run tests
-      env:
-        DJANGO_SETTINGS_MODULE: investment_project.settings_template  # Or any other settings file
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}  # Use GitHub Secrets
-        DEBUG: 'False'
-        DB_NAME: ${{ secrets.DB_NAME }}  # Use GitHub Secrets
-        DB_USER: ${{ secrets.DB_USER }}  # Use GitHub Secrets
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  # Use GitHub Secrets
+      - name: Run migrations
+        run: python manage.py migrate
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: postgres://your_db_user:your_db_password@localhost/your_db_name
 
-      run: |
-        python manage.py test
+      - name: Run tests
+        run: python manage.py test
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: postgres://your_db_user:your_db_password@localhost/your_db_name
