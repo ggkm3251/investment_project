@@ -14,7 +14,7 @@ from rest_framework import generics
 from rest_framework import status
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
+from drf_yasg.utils import swagger_auto_schema
 
 
 
@@ -23,6 +23,13 @@ class InvestmentAccountViewSet(viewsets.ModelViewSet):
     queryset = InvestmentAccount.objects.all()
     serializer_class = InvestmentAccountSerializer
     permission_classes = [IsAuthenticated, HasAccountPermission]
+
+    @swagger_auto_schema(
+        operation_description="Retrieve all investment accounts for the authenticated user",
+        security=[{"Bearer": []}]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
