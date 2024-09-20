@@ -9,9 +9,14 @@ from .models import InvestmentAccount, Transaction, UserProfile
 from .serializers import InvestmentAccountSerializer, TransactionSerializer, UserCreateSerializer
 from .permissions import HasAccountPermission
 from django_filters.rest_framework import DjangoFilterBackend
-
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework import status
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+
+
 
 # Create your views here.
 class InvestmentAccountViewSet(viewsets.ModelViewSet):
@@ -30,8 +35,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
    
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def admin_summary(self, request):
-        user_profile = UserProfile.objects.get(user=request.user)
+        user_profile =  get_object_or_404(UserProfile, user=request.user)
         transactions = Transaction.objects.filter(user_profile=user_profile)
+        
         start_date = request.query_params.get('start_date')
         end_date = request.query_params.get('end_date')
         
