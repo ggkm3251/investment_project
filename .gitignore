@@ -1,0 +1,64 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+db.sqlite3
+
+# Environment variables
+.env
+*.env
+.env.*
+
+# Local development environment
+*.history
+*.local
+*.backup
+
+# Migrations
+**/migrations/
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# pyenv virtual environment
+.python-version
+investment-api/
+
+# C extensions
+*.so
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# Test and temp files
+*.out
+*.pid
+*.tmp
+*.temp
+*.swp
+
+# Production-related files
+**/.env
+**/.venv/
+
+# Static and media files
+/static/
+media/
+
+# VS Code, PyCharm, and other editor settings
+.vscode/
+.idea/
+
+settings.py
