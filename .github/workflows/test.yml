@@ -1,35 +1,52 @@
-name: Run Tests
+name: Django CI
 
 on:
   push:
     branches:
-      - main  # Change this to your default branch if it's different
-  pull_request:
-    branches:
       - main
+  pull_request:
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.12'  # Specify the version you are using
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
+    services:
+      db:
+        image: postgres:latest
         env:
-          DJANGO_SETTINGS_MODULE: investment_project.settings  # Set the settings module
+          POSTGRES_DB: your_db_name
+          POSTGRES_USER: your_db_user
+          POSTGRES_PASSWORD: your_db_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U your_db_user"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-      - name: Run tests
-        run: |
-          python manage.py test  # Change if you're using a different test command
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      env:
+        DJANGO_SETTINGS_MODULE: investment_project.settings_template  # Or any other settings file
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}  # Use GitHub Secrets
+        DEBUG: 'False'
+        DB_NAME: ${{ secrets.DB_NAME }}  # Use GitHub Secrets
+        DB_USER: ${{ secrets.DB_USER }}  # Use GitHub Secrets
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}  # Use GitHub Secrets
+
+      run: |
+        python manage.py test
