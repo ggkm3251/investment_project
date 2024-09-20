@@ -28,7 +28,7 @@ DATABASES = {
 }
 
 
-ALLOWED_HOSTS = ['investpulse.onrender.com']
+ALLOWED_HOSTS = ['investpulse-ibah.onrender.com']
 
 
 # Application definition
