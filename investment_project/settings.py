@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import ast
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,20 +24,11 @@ DEBUG = config('DJANGO_DEBUG')
 
 
 
-SWAGGER_ENABLED = True  # Enable Swagger in production
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.getenv('DATABASE_NAME', BASE_DIR / 'db.sqlite3'),
-    }
-}
-
-
-
 # ALLOWED_HOSTS = ['localhost:8000', "127.0.0.1", "127.0.0.1:8000"]
 ALLOWED_HOSTS = ast.literal_eval(config("ALLOWED_HOSTS"))
-print('Al', ALLOWED_HOSTS)
+#print('Al', ALLOWED_HOSTS)
+print(config("ALLOWED_HOSTS"))
+
 
 # Application definition
 
@@ -74,6 +66,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'investment_project.urls'
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5)
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -92,6 +88,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'investment_project.wsgi.application'
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.getenv('DATABASE_NAME', BASE_DIR / 'db.sqlite3'),
+    }
+}
 
 
 # Password validation
@@ -130,6 +133,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+if not DEBUG:
+    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -145,9 +155,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
-    ],
+
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
+    # ],
+
 }
 
 SWAGGER_SETTINGS = {
@@ -161,12 +173,6 @@ SWAGGER_SETTINGS = {
     }
 }
 
-
-if not DEBUG:
-    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+SWAGGER_ENABLED = True  # Enable Swagger in production
 
 
