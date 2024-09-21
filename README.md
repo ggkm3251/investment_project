@@ -1,6 +1,6 @@
 # investment_project
 # django-rest-api
-A REST api written in Django for people with deadlines
+A REST api written in Django for users with investment accounts
 
 ## Technologies used
 * [Django](https://www.djangoproject.com/): The web framework for perfectionists with deadlines (Django builds better web apps with less code).
