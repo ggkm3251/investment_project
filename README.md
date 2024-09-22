@@ -58,9 +58,8 @@ pip install -r requirements.txt
 
 ##### Enviroment variables
 ```
-SECRET_KEY='django-secret-key' 
-DJANGO_ENV='dev' // default for development
-DEBUG=True
+DJANGO_SECRET_KEY='django-secret-key' 
+DJANGO_EBUG=True
 ALLOWED_HOSTS=provide for localhost (Should be a list)
 ```
 
@@ -132,7 +131,7 @@ Visit admin interface on: [localhost/admin](http://127.0.0.1:8000/admin/)
   - `id` (integer): The unique identifier of the created account.
   - `name` (string): The name of the account.
   - `balance` (string): The amount balance of the account.
-  - `transactions` (integer): Nested Transactions for the account for the user.
+  - `transactions` (object): Nested Transactions for the account for the user.
   
 ### Get Investment Accounts
 
@@ -192,7 +191,7 @@ Visit admin interface on: [localhost/admin](http://127.0.0.1:8000/admin/)
   - `transaction_type` (string, required): The transaction_type of the transaction.
   - `amount` (string, required): The amount of the transaction.
 - **Response**:
-  - `Response body` (string): `id`,and the updated `account`, `user_profile`,`transaction_type`, `amount`, and `date` details.
+  - `Response body` (object): `id`,and the updated `account`, `user_profile`,`transaction_type`, `amount`, and `date` details.
 
 ### Delete Transaction
 
