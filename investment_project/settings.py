@@ -34,7 +34,6 @@ DEBUG = config('DJANGO_DEBUG')
 ALLOWED_HOSTS = ast.literal_eval(config("ALLOWED_HOSTS"))
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
