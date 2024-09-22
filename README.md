@@ -172,7 +172,7 @@ Visit admin interface on: [localhost/admin](http://127.0.0.1:8000/admin/)
 - **Method**: GET
 - **Description**: Retrieve a list of all user's transactions.
 - **Response**:
-  - An array of transaction objects, each containing `id`, `account`, `user_profile`, `transaction_type1`, `amount`, and `date` details.
+  - An array of transaction objects, each containing `id`, `account`, `user_profile`, `transaction_type`, `amount`, and `date` details.
 
 ### Update Transaction
 
@@ -193,6 +193,13 @@ Visit admin interface on: [localhost/admin](http://127.0.0.1:8000/admin/)
 - **Method**: DELETE
 - **Description**: Delete a transaction by its ID.
 - **Response**: 204 success.
+
+### Admin Endpoint Summary
+- **Endpoint**: `/api/transactions/admin_summary`
+- **Method**: GET
+- **Description**: Retrieve a list of all the user's transactions, along with a nested sum of the user's total balance.
+- **Response**:
+  - An array of transaction objects, each containing `id`, `account`, `user_profile`, `transaction_type`, `amount`, `date` details and `total_balance` from all the transactions.
 
 ## Error Handling
 
