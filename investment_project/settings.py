@@ -30,7 +30,6 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 DEBUG = config('DJANGO_DEBUG')
 
 
-
 # Convert env list to python list
 ALLOWED_HOSTS = ast.literal_eval(config("ALLOWED_HOSTS"))
 
