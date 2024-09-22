@@ -26,6 +26,7 @@ jobs:
         echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> $GITHUB_ENV
         echo "DJANGO_DEBUG=False" >> $GITHUB_ENV
         echo "DATABASE_NAME=${{ secrets.DATABASE_NAME }}" >> $GITHUB_ENV
+        echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> $GITHUB_ENV
       
     - name: Run migrations
       run: |
