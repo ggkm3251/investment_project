@@ -39,7 +39,14 @@ code .
 ### Project Scripts
 4. Create and activate a virtual enviroment,
 ```bash
-pyenv activate investment-project
+pyenv install 3.12.3
+```
+```bash
+pyenv virtualenv 3.12.3 <env-name>
+```
+
+```bash
+pyenv activate <env-name>
 ```
 5. Install project dependacies
 ```bash
