@@ -15,7 +15,7 @@ from rest_framework import status
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.utils import swagger_auto_schema
-
+from drf_yasg import openapi
 
 
 # Create your views here.
@@ -36,8 +36,16 @@ class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
     permission_classes = [IsAuthenticated, HasAccountPermission]
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ['account', 'date']
+    filterset_fields = ['account']
     ordering_fields = ['date']
+
+     # Define query parameters for Swagger
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('start_date', openapi.IN_QUERY, description="Start date in YYYY-MM-DD format", type=openapi.TYPE_STRING, format='date'),
+            openapi.Parameter('end_date', openapi.IN_QUERY, description="End date in YYYY-MM-DD format", type=openapi.TYPE_STRING, format='date'),
+        ]
+    )
 
    
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
