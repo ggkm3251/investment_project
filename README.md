@@ -87,16 +87,6 @@ The development server should listen on [port:8000](http://127.0.0.1:8000)
 Visit admin interface on: [localhost/admin](http://127.0.0.1:8000/admin/)
 
 
-## Authentication
-
-Authentication is required to access certain endpoints. The API uses token-based authentication. To authenticate a request, include an `Authorization` header with a valid JWT token.
-
-Example:
-
-```http
-Authorization: Bearer <JWT_TOKEN>
-```
-
 ## Endpoints
 
 ### User Registration
