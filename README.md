@@ -51,7 +51,7 @@ pip install -r requirements.txt
 
 ##### Enviroment variables
 ```
-SECRET_KEY='django-secret-key' or 'you-will-never-guess'
+SECRET_KEY='django-secret-key' 
 DJANGO_ENV='dev' // default for development
 DEBUG=True
 ALLOWED_HOSTS=provide for localhost (Should be a list)
