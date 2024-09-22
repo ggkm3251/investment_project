@@ -113,22 +113,86 @@ Visit admin interface on: [localhost/admin](http://127.0.0.1:8000/admin/)
   - `token` (string): A JWT token for authentication (Access and refresh).
   - `user` (object): User information.
 
-### Create Account
+### Create Investment Account
 
 - **Endpoint**: `/api/accounts`
 - **Method**: POST
-- **Description**: Create a new investment account.
+- **Description**: Create a new account.
 - **Request Body**:
-  - `name` (string, required): The name of the investment account.
+  - `name` (string, required): The name of the account.
   - `balance` (string, required): The amount balance of the account.
-- **Response**:
-  - `id` (integer): The unique identifier of the created note.
-  - `name` (string): The name of the investment account.
+- **Response**: Created 
+  - `id` (integer): The unique identifier of the created account.
+  - `name` (string): The name of the account.
   - `balance` (string): The amount balance of the account.
-  - `transactions` (integer): Nested Transactions for the investment account.
+  - `transactions` (integer): Nested Transactions for the account for the user.
   
+### Get Investment Accounts
 
+- **Endpoint**: `/api/accounts`
+- **Method**: GET
+- **Description**: Retrieve a list of all user's investment accounts.
+- **Response**:
+  - An array of account objects, each containing `id`, `name`, `balance`, and `transactions` details.
 
+### Update Investment Account
+
+- **Endpoint**: `/api/accounts/:id`
+- **Method**: PUT
+- **Description**: Update an existing investment account.
+- **Request Body**:
+  - `name` (string, required): The updated name of the investment account.
+  - `balance` (string, required): The updated balance of the investment account.
+- **Response**: 
+  - An array of account objects, each containing `id`, `name`, `balance`, and `transactions` details, and the updated `name` and `balance`.
+
+### Delete Investment Account
+
+- **Endpoint**: `/api/accounts/:id`
+- **Method**: DELETE
+- **Description**: Delete an investment account by its ID.
+- **Response**: 204 success.
+
+### Create Transaction
+
+- **Endpoint**: `/api/transactions`
+- **Method**: POST
+- **Description**: Create a new transaction.
+- **Request Body**:
+  - `account` (string, required): The ID of the investment account.
+  - `user_profile` (string, required): The ID of the user_profile.
+  - `transaction_type` (string, required): The type of transaction (deposit or withdraw).
+  - `amount` (string, required): The transaction amount.
+- **Response**: 
+  - Created `id`, `account`, `user_profile`, `transaction_type`, `amount`, and `date`.
+
+### Get Transactions
+
+- **Endpoint**: `/api/transactions`
+- **Method**: GET
+- **Description**: Retrieve a list of all user's transactions.
+- **Response**:
+  - An array of transaction objects, each containing `id`, `account`, `user_profile`, `transaction_type1`, `amount`, and `date` details.
+
+### Update Transaction
+
+- **Endpoint**: `/api/transactions/:id`
+- **Method**: PUT
+- **Description**: Update an existing transaction.
+- **Request Body**:
+  - `account` (string, required): The ID of the investment account.
+  - `user_profile` (string, required): The ID of the user_profile.
+  - `transaction_type` (string, required): The transaction_type of the transaction.
+  - `amount` (string, required): The amount of the transaction.
+- **Response**:
+  - `Response body` (string): `id`,and the updated `account`, `user_profile`,`transaction_type`, `amount`, and `date` details.
+
+### Delete Transaction
+
+- **Endpoint**: `/api/transactions/:id`
+- **Method**: DELETE
+- **Description**: Delete a transaction by its ID.
+- **Response**: 204 success.
 
 ## Error Handling
 
